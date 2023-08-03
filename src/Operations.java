@@ -4,14 +4,8 @@ public class Operations {
     public static void main(String[] args) {
         String customer = "Eddie Vedder";
         String accountType = "Corrente";
-        double initialBalance = 1999.00;
-        double currentBalance = initialBalance;
-
-        Scanner receiveValue = new Scanner(System.in);
-        Scanner transferValue = new Scanner(System.in);
-
-        int receivedAmount = 0;
-        int transferedAmount = 0;
+        double balance = 1999.00;
+        Scanner readValue = new Scanner(System.in);
 
         String menu = """
                 Operações
@@ -23,7 +17,7 @@ public class Operations {
         System.out.println("*************************");
         System.out.println("\nCliente: "+ customer);
         System.out.println("Tipo de conta: "+ accountType);
-        System.out.println("Saldo atual: "+ currentBalance);
+        System.out.println("Saldo atual: "+ balance);
         System.out.println("\n*************************");
 
         Scanner selectMenuOption = new Scanner(System.in);
@@ -34,29 +28,26 @@ public class Operations {
             System.out.println("Digite a opção desejada");
             menuOption = selectMenuOption.nextInt();
 
-            switch (menuOption) {
-                case 1:
-                    System.out.println("O saldo atual é: "+ currentBalance);
-                    break;
-                case 2:
-                    System.out.println("Informe o valor a receber");
-                    receivedAmount = receiveValue.nextInt();
-                    currentBalance = currentBalance + receivedAmount;
-                    System.out.println("Saldo atualizado: "+ currentBalance);
-                    break;
-                case 3:
-                    System.out.println("Informe o valor para transferência");
-                    transferedAmount = transferValue.nextInt();
-                    currentBalance = currentBalance - transferedAmount;
-                    System.out.println("Saldo atualizado: "+ currentBalance);
-                    break;
-                case 4:
-                    break;
-                default:
-                    System.out.println("Opção inválida");
+            if (menuOption == 1)  {
+                System.out.println("O saldo atual é:" + balance);
+            } else if (menuOption == 2) {
+                System.out.println("Informe o valor a receber");
+                double value = readValue.nextDouble();
+                balance += value;
+                System.out.println("Novo saldo:" + balance);
+            } else if (menuOption == 3) {
+                System.out.println("Informe o valor para transferência");
+                double value = readValue.nextDouble();
+                if (value > balance) {
+                    System.out.println("Nãp há saldo suficiente.");
+                    System.out.println("O saldo atual é:" + balance);
+                } else {
+                    balance -= value;
+                    System.out.println("Novo saldo:" + balance);
+                }
+            } else if (menuOption != 4) {
+                System.out.println("Opção inválida");
             }
         }
-
-
     }
 }
